@@ -1,0 +1,11 @@
+{
+  "generator-openapi-repo": {
+    "importExistingSpec": true,
+    "importedSpec": "./api.yaml",
+    "name": "CRM Connector API Spec",
+    "repo": "navomi-inc/Ocean-Internal-Connector-Docs",
+    "splitSpec": false,
+    "samples": false,
+    "installSwaggerUI": false
+  }
+}
