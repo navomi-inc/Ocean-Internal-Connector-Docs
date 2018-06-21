@@ -1,0 +1,352 @@
+openapi: '3.0.0'
+info:
+  description: The internal connector API reference for all internal CRM connector peices.
+  version: 1.0.0
+  title: Internal Connector
+  contact:
+    email: jaden.giordano@navomi.com
+
+servers:
+- url: ocean-internal.navomi.com
+
+tag:
+- name: Accounts
+  description: Accounts access
+- name: Leads
+  description: Leads access
+- name: Contacts
+  description: Contacts access
+- name: Cases
+  description: Cases access
+- name: Notes
+  description: Notes access
+
+paths:
+  /accounts:
+    get:
+      tags:
+      - accounts
+      summary: Find account(s)
+      produces:
+      - application/json
+      parameters:
+      - in: query
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+        400:
+          $ref: '#/components/responses/NotAuthenticated'
+        500:
+          $ref: '#/components/responses/InternalError'
+    post:
+      tags:
+      - accounts
+      summary: Create an account
+      responses:
+        200:
+          $ref: '#/components/responses/Account'
+        400:
+          $ref: '#/components/responses/NotAuthenticated'
+        500:
+          $ref: '#/components/responses/InternalError'
+  /accounts/{accountId}:
+    get:
+      tags:
+      - accounts
+      summary: Get an account
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: accountId
+        required: true
+        description: Id of account
+        type: string
+      responses:
+        200:
+          $ref: '#/components/responses/Account'
+        404:
+          $ref: '#/components/responses/NotFound'
+        400:
+          $ref: '#/components/responses/NotAuthenticated'
+        500:
+          $ref: '#/components/responses/InternalError'
+    patch:
+      tags:
+      - accounts
+      summary: Update an account
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: accountId
+        required: true
+        description: Id of account
+        type: string
+      responses:
+        200:
+          $ref: '#/components/responses/Account'
+        404:
+          $ref: '#/components/responses/NotFound'
+        400:
+          $ref: '#/components/responses/NotAuthenticated'
+        500:
+          $ref: '#/components/responses/InternalError'
+    delete:
+      tags:
+      - accounts
+      summary: Remove an account
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: accountId
+        required: true
+        description: Id of account
+        type: string
+      responses:
+        200:
+          description: Success
+        404:
+          $ref: '#/components/responses/NotFound'
+        400:
+          $ref: '#/components/responses/NotAuthenticated'
+        500:
+          $ref: '#/components/responses/InternalError'
+  /leads:
+    get:
+      tags:
+      - leads
+      summary: Find lead(s)
+      produces:
+      - application/json
+      parameters:
+      - in: query
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Lead'
+        400:
+          $ref: '#/components/responses/NotAuthenticated'
+        500:
+          $ref: '#/components/responses/InternalError'
+    post:
+      tags:
+      - leads
+      summary: Create a lead
+      responses:
+        200:
+          $ref: '#/components/responses/Lead'
+        400:
+          $ref: '#/components/responses/NotAuthenticated'
+        500:
+          $ref: '#/components/responses/InternalError'
+  /leads/{leadId}:
+    get:
+      tags:
+      - leads
+      summary: Get a lead
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: leadId
+        required: true
+        description: Id of account
+        type: string
+      responses:
+        200:
+          $ref: '#/components/responses/Lead'
+        404:
+          $ref: '#/components/responses/NotFound'
+        400:
+          $ref: '#/components/responses/NotAuthenticated'
+        500:
+          $ref: '#/components/responses/InternalError'
+    patch:
+      tags:
+      - leads
+      summary: Update a lead
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: leadId
+        required: true
+        description: Id of lead
+        type: string
+      responses:
+        200:
+          $ref: '#/components/responses/Lead'
+        404:
+          $ref: '#/components/responses/NotFound'
+        400:
+          $ref: '#/components/responses/NotAuthenticated'
+        500:
+          $ref: '#/components/responses/InternalError'
+    delete:
+      tags:
+      - leads
+      summary: Remove a lead
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: leadId
+        required: true
+        description: Id of lead
+        type: string
+      responses:
+        200:
+          description: Success
+        404:
+          $ref: '#/components/responses/NotFound'
+        400:
+          $ref: '#/components/responses/NotAuthenticated'
+        500:
+          $ref: '#/components/responses/InternalError'
+components:
+  schemas:
+    Account:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The identifier of the account.
+        description:
+          type: string
+          description: The description of the account.
+        email:
+          type: string
+          description: The email associated with the account.
+        phone:
+          type: string
+          description: The primary phone number associated with the account.
+        secondaryPhone:
+          type: string
+          description: The secondary phone number associated with the account.
+        fax:
+          type: string
+          description: The fax number associated witht he account.
+        billingAddress:
+          type: object
+          properties:
+            street:
+              type: string
+              description: The primary street field.
+            streetTwo:
+              type: string
+              description: The secondary street field.
+            city:
+              type: string
+              description: The city.
+            state:
+              type: string
+              description: The state.
+            zip:
+              type: string
+              description: The postal/zip code.
+          description: The billing address associated with the account.
+        shippingAddress:
+          type: object
+          properties:
+            street:
+              type: string
+              description: The primary street field.
+            streetTwo:
+              type: string
+              description: The secondary street field.
+            city:
+              type: string
+              description: The city.
+            state:
+              type: string
+              description: The state.
+            zip:
+              type: string
+              description: The postal/zip code.
+          description: The shipping address associated with the account.
+    Lead:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The identifier of the lead
+        name:
+          type: string
+          description: The name of the lead.
+        description:
+          type: string
+          description: The description of the lead.
+        email:
+          type: string
+          description: The email associated with the lead.
+        phone:
+          type: string
+          description: The primary phone number associated with the lead.
+        secondaryPhone:
+          type: string
+          description: The secondary phone number associated with the lead.
+        fax:
+          type: string
+          description: The fax number associated witht he lead.
+        leadSource:
+          type: string
+          description: The source of the lead.
+        address:
+          type: object
+          properties:
+            street:
+              type: string
+              description: The primary street field.
+            streetTwo:
+              type: string
+              description: The secondary street field.
+            city:
+              type: string
+              description: The city.
+            state:
+              type: string
+              description: The state.
+            zip:
+              type: string
+              description: The postal/zip code.
+          description: The address associated with the lead.
+    Error:
+      type: string
+      description: The description of the error
+  responses:
+    Account:
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Account'
+    Lead:
+      descption: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Lead'
+    NotFound:
+      description: Module not found
+    NotAuthenticated:
+      description: Must be authenticated to perform this action
+    InternalError:
+      description: An internal error occured
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/Error'
+
