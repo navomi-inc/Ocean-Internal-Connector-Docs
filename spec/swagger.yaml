@@ -1,4 +1,5 @@
 openapi: '3.0.0'
+swagger: '3.0'
 info:
   description: The internal connector API reference for all internal CRM connector peices.
   version: 1.0.0
@@ -25,7 +26,7 @@ paths:
   /accounts:
     get:
       tags:
-      - accounts
+      - Accounts
       summary: Find account(s)
       produces:
       - application/json
@@ -46,8 +47,14 @@ paths:
           $ref: '#/components/responses/InternalError'
     post:
       tags:
-      - accounts
+      - Accounts
       summary: Create an account
+      requestBody:
+        description: The account to be created.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountInput'
       responses:
         200:
           $ref: '#/components/responses/Account'
@@ -58,7 +65,7 @@ paths:
   /accounts/{accountId}:
     get:
       tags:
-      - accounts
+      - Accounts
       summary: Get an account
       produces:
       - application/json
@@ -79,7 +86,7 @@ paths:
           $ref: '#/components/responses/InternalError'
     patch:
       tags:
-      - accounts
+      - Accounts
       summary: Update an account
       produces:
       - application/json
@@ -89,6 +96,12 @@ paths:
         required: true
         description: Id of account
         type: string
+      requestBody:
+        description: The info to update the account with.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountInput'
       responses:
         200:
           $ref: '#/components/responses/Account'
@@ -100,7 +113,7 @@ paths:
           $ref: '#/components/responses/InternalError'
     delete:
       tags:
-      - accounts
+      - Accounts
       summary: Remove an account
       produces:
       - application/json
@@ -122,7 +135,7 @@ paths:
   /leads:
     get:
       tags:
-      - leads
+      - Leads
       summary: Find lead(s)
       produces:
       - application/json
@@ -143,8 +156,14 @@ paths:
           $ref: '#/components/responses/InternalError'
     post:
       tags:
-      - leads
+      - Leads
       summary: Create a lead
+      requestBody:
+        description: The info to create the lead with.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LeadInput'
       responses:
         200:
           $ref: '#/components/responses/Lead'
@@ -155,7 +174,7 @@ paths:
   /leads/{leadId}:
     get:
       tags:
-      - leads
+      - Leads
       summary: Get a lead
       produces:
       - application/json
@@ -176,7 +195,7 @@ paths:
           $ref: '#/components/responses/InternalError'
     patch:
       tags:
-      - leads
+      - Leads
       summary: Update a lead
       produces:
       - application/json
@@ -186,6 +205,12 @@ paths:
         required: true
         description: Id of lead
         type: string
+      requestBody:
+        description: The info to update the lead with.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LeadInput'
       responses:
         200:
           $ref: '#/components/responses/Lead'
@@ -197,7 +222,7 @@ paths:
           $ref: '#/components/responses/InternalError'
     delete:
       tags:
-      - leads
+      - Leads
       summary: Remove a lead
       produces:
       - application/json
@@ -216,6 +241,224 @@ paths:
           $ref: '#/components/responses/NotAuthenticated'
         500:
           $ref: '#/components/responses/InternalError'
+  /cases:
+    get:
+      tags:
+      - Cases
+      summary: Find case(s)
+      produces:
+      - application/json
+      parameters:
+      - in: query
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Case'
+        400:
+          $ref: '#/components/responses/NotAuthenticated'
+        500:
+          $ref: '#/components/responses/InternalError'
+    post:
+      tags:
+      - Cases
+      summary: Create a case
+      requestBody:
+        description: The info to create the case with.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CaseInput'
+      responses:
+        200:
+          $ref: '#/components/responses/Case'
+        400:
+          $ref: '#/components/responses/NotAuthenticated'
+        500:
+          $ref: '#/components/responses/InternalError'
+  /cases/{caseId}:
+    get:
+      tags:
+      - Cases
+      summary: Get a case
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: caseId
+        required: true
+        description: Id of case
+        type: string
+      responses:
+        200:
+          $ref: '#/components/responses/Case'
+        404:
+          $ref: '#/components/responses/NotFound'
+        400:
+          $ref: '#/components/responses/NotAuthenticated'
+        500:
+          $ref: '#/components/responses/InternalError'
+    patch:
+      tags:
+      - Cases
+      summary: Update a case
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: caseId
+        required: true
+        description: Id of case
+        type: string
+      requestBody:
+        description: The info to update the case with.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CaseInput'
+      responses:
+        200:
+          $ref: '#/components/responses/Case'
+        404:
+          $ref: '#/components/responses/NotFound'
+        400:
+          $ref: '#/components/responses/NotAuthenticated'
+        500:
+          $ref: '#/components/responses/InternalError'
+    delete:
+      tags:
+      - Cases
+      summary: Remove a case
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: caseId
+        required: true
+        description: Id of case
+        type: string
+      responses:
+        200:
+          description: Success
+        404:
+          $ref: '#/components/responses/NotFound'
+        400:
+          $ref: '#/components/responses/NotAuthenticated'
+        500:
+          $ref: '#/components/responses/InternalError'
+  /contacts:
+    get:
+      tags:
+      - Contacts
+      summary: Find contact(s)
+      produces:
+      - application/json
+      parameters:
+      - in: query
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Contact'
+        400:
+          $ref: '#/components/responses/NotAuthenticated'
+        500:
+          $ref: '#/components/responses/InternalError'
+    post:
+      tags:
+      - Contacts
+      summary: Create a contact
+      requestBody:
+        description: The info to create the contact with.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactInput'
+      responses:
+        200:
+          $ref: '#/components/responses/Contact'
+        400:
+          $ref: '#/components/responses/NotAuthenticated'
+        500:
+          $ref: '#/components/responses/InternalError'
+  /contacts/{contactId}:
+    get:
+      tags:
+      - Contacts
+      summary: Get a contact
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: contactId
+        required: true
+        description: Id of contact
+        type: string
+      responses:
+        200:
+          $ref: '#/components/responses/Contact'
+        404:
+          $ref: '#/components/responses/NotFound'
+        400:
+          $ref: '#/components/responses/NotAuthenticated'
+        500:
+          $ref: '#/components/responses/InternalError'
+    patch:
+      tags:
+      - Contacts
+      summary: Update a contact
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: contactId
+        required: true
+        description: Id of contact
+        type: string
+      requestBody:
+        description: The info to update the contact with.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactInput'
+      responses:
+        200:
+          $ref: '#/components/responses/Contact'
+        404:
+          $ref: '#/components/responses/NotFound'
+        400:
+          $ref: '#/components/responses/NotAuthenticated'
+        500:
+          $ref: '#/components/responses/InternalError'
+    delete:
+      tags:
+      - Contacts
+      summary: Remove a contact
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: contactId
+        required: true
+        description: Id of contact
+        type: string
+      responses:
+        200:
+          description: Success
+        404:
+          $ref: '#/components/responses/NotFound'
+        400:
+          $ref: '#/components/responses/NotAuthenticated'
+        500:
+          $ref: '#/components/responses/InternalError'
 components:
   schemas:
     Account:
@@ -224,6 +467,68 @@ components:
         id:
           type: string
           description: The identifier of the account.
+        name:
+          type: string
+          description: The name of the account.
+        description:
+          type: string
+          description: The description of the account.
+        email:
+          type: string
+          description: The email associated with the account.
+        phone:
+          type: string
+          description: The primary phone number associated with the account.
+        secondaryPhone:
+          type: string
+          description: The secondary phone number associated with the account.
+        fax:
+          type: string
+          description: The fax number associated witht he account.
+        billingAddress:
+          type: object
+          properties:
+            street:
+              type: string
+              description: The primary street field.
+            streetTwo:
+              type: string
+              description: The secondary street field.
+            city:
+              type: string
+              description: The city.
+            state:
+              type: string
+              description: The state.
+            zip:
+              type: string
+              description: The postal/zip code.
+          description: The billing address associated with the account.
+        shippingAddress:
+          type: object
+          properties:
+            street:
+              type: string
+              description: The primary street field.
+            streetTwo:
+              type: string
+              description: The secondary street field.
+            city:
+              type: string
+              description: The city.
+            state:
+              type: string
+              description: The state.
+            zip:
+              type: string
+              description: The postal/zip code.
+          description: The shipping address associated with the account.
+    AccountInput:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the account.
         description:
           type: string
           description: The description of the account.
@@ -323,6 +628,147 @@ components:
               type: string
               description: The postal/zip code.
           description: The address associated with the lead.
+    LeadInput:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the lead.
+        description:
+          type: string
+          description: The description of the lead.
+        email:
+          type: string
+          description: The email associated with the lead.
+        phone:
+          type: string
+          description: The primary phone number associated with the lead.
+        secondaryPhone:
+          type: string
+          description: The secondary phone number associated with the lead.
+        fax:
+          type: string
+          description: The fax number associated witht he lead.
+        leadSource:
+          type: string
+          description: The source of the lead.
+        address:
+          type: object
+          properties:
+            street:
+              type: string
+              description: The primary street field.
+            streetTwo:
+              type: string
+              description: The secondary street field.
+            city:
+              type: string
+              description: The city.
+            state:
+              type: string
+              description: The state.
+            zip:
+              type: string
+              description: The postal/zip code.
+          description: The address associated with the lead.
+    Case:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The identifier of the case.
+        name:
+          type: string
+          description: The name of the case.
+        description:
+          type: string
+          description: The description of the case.
+        status:
+          type: string
+          enum:
+            - New
+            - Pending
+            - Closed
+          description: The status of the case.
+        priority:
+          type: string
+          enum:
+            - Low
+            - Medium
+            - High
+        account:
+          type: string
+          description: The identifier of the account the case is linked to.
+    CaseInput:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the case.
+        description:
+          type: string
+          description: The description of the case.
+        status:
+          type: string
+          enum:
+            - New
+            - Pending
+            - Closed
+          description: The status of the case.
+        priority:
+          type: string
+          enum:
+            - Low
+            - Medium
+            - High
+        account:
+          type: string
+          description: The identifier of the account the case is linked to.
+    Contact:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The identifier of the contact.
+        name:
+          type: string
+          description: The name of the contact.
+        description:
+          type: string
+          description: The description of the contact.
+        email:
+          type: string
+          description: The email associated with the contact.
+        phone:
+          type: string
+          description: The primary phone number associated with the contact.
+        secondaryPhone:
+          type: string
+          description: The secondary phone number associated with the contact.
+        fax:
+          type: string
+          description: The fax number associated witht he contact.
+    ContactInput:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the contact.
+        description:
+          type: string
+          description: The description of the contact.
+        email:
+          type: string
+          description: The email associated with the contact.
+        phone:
+          type: string
+          description: The primary phone number associated with the contact.
+        secondaryPhone:
+          type: string
+          description: The secondary phone number associated with the contact.
+        fax:
+          type: string
+          description: The fax number associated witht he contact.
     Error:
       type: string
       description: The description of the error
@@ -334,11 +780,23 @@ components:
           schema:
             $ref: '#/components/schemas/Account'
     Lead:
-      descption: Success
+      description: Success
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Lead'
+    Case:
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Case'
+    Contact:
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Contact'
     NotFound:
       description: Module not found
     NotAuthenticated:
