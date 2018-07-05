@@ -1,38 +1,35 @@
-openapi: '3.0.1'
+openapi: 3.0.1
 info:
   description: The internal connector API reference for all internal CRM connector peices.
   version: 1.0.0
   title: Internal Connector
   contact:
     email: jaden.giordano@navomi.com
-
 servers:
-- url: ocean-internal.navomi.com
-
+  - url: ocean-internal.navomi.com
 tag:
-- name: Accounts
-  description: Accounts access
-- name: Leads
-  description: Leads access
-- name: Contacts
-  description: Contacts access
-- name: Cases
-  description: Cases access
-- name: Notes
-  description: Notes access
-
+  - name: Accounts
+    description: Accounts access
+  - name: Leads
+    description: Leads access
+  - name: Contacts
+    description: Contacts access
+  - name: Cases
+    description: Cases access
+  - name: Notes
+    description: Notes access
 paths:
   /accounts:
     get:
       tags:
-      - Accounts
+        - Accounts
       summary: Find account(s)
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: query
+        - in: query
       responses:
-        200:
+        '200':
           description: Success
           content:
             application/json:
@@ -40,15 +37,15 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Account'
-        400:
+        '400':
           $ref: '#/components/responses/NotAuthenticated'
-        405:
+        '405':
           $ref: '#/components/responses/MethodNotAllowed'
-        500:
+        '500':
           $ref: '#/components/responses/InternalError'
     post:
       tags:
-      - Accounts
+        - Accounts
       summary: Create an account
       requestBody:
         description: The account to be created.
@@ -57,50 +54,50 @@ paths:
             schema:
               $ref: '#/components/schemas/AccountInput'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Account'
-        400:
+        '400':
           $ref: '#/components/responses/NotAuthenticated'
-        405:
+        '405':
           $ref: '#/components/responses/MethodNotAllowed'
-        500:
+        '500':
           $ref: '#/components/responses/InternalError'
-  /accounts/{accountId}:
+  '/accounts/{accountId}':
     get:
       tags:
-      - Accounts
+        - Accounts
       summary: Get an account
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: path
-        name: accountId
-        required: true
-        description: Id of account
-        type: string
+        - in: path
+          name: accountId
+          required: true
+          description: Id of account
+          type: string
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Account'
-        404:
-          $ref: '#/components/responses/NotFound'
-        400:
+        '400':
           $ref: '#/components/responses/NotAuthenticated'
-        405:
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '405':
           $ref: '#/components/responses/MethodNotAllowed'
-        500:
+        '500':
           $ref: '#/components/responses/InternalError'
     patch:
       tags:
-      - Accounts
+        - Accounts
       summary: Update an account
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: path
-        name: accountId
-        required: true
-        description: Id of account
-        type: string
+        - in: path
+          name: accountId
+          required: true
+          description: Id of account
+          type: string
       requestBody:
         description: The info to update the account with.
         content:
@@ -108,50 +105,50 @@ paths:
             schema:
               $ref: '#/components/schemas/AccountInput'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Account'
-        404:
-          $ref: '#/components/responses/NotFound'
-        400:
+        '400':
           $ref: '#/components/responses/NotAuthenticated'
-        405:
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '405':
           $ref: '#/components/responses/MethodNotAllowed'
-        500:
+        '500':
           $ref: '#/components/responses/InternalError'
     delete:
       tags:
-      - Accounts
+        - Accounts
       summary: Remove an account
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: path
-        name: accountId
-        required: true
-        description: Id of account
-        type: string
+        - in: path
+          name: accountId
+          required: true
+          description: Id of account
+          type: string
       responses:
-        200:
+        '200':
           description: Success
-        404:
-          $ref: '#/components/responses/NotFound'
-        400:
+        '400':
           $ref: '#/components/responses/NotAuthenticated'
-        405:
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '405':
           $ref: '#/components/responses/MethodNotAllowed'
-        500:
+        '500':
           $ref: '#/components/responses/InternalError'
   /leads:
     get:
       tags:
-      - Leads
+        - Leads
       summary: Find lead(s)
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: query
+        - in: query
       responses:
-        200:
+        '200':
           description: Success
           content:
             application/json:
@@ -159,15 +156,15 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Lead'
-        400:
+        '400':
           $ref: '#/components/responses/NotAuthenticated'
-        405:
+        '405':
           $ref: '#/components/responses/MethodNotAllowed'
-        500:
+        '500':
           $ref: '#/components/responses/InternalError'
     post:
       tags:
-      - Leads
+        - Leads
       summary: Create a lead
       requestBody:
         description: The info to create the lead with.
@@ -176,50 +173,50 @@ paths:
             schema:
               $ref: '#/components/schemas/LeadInput'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Lead'
-        400:
+        '400':
           $ref: '#/components/responses/NotAuthenticated'
-        405:
+        '405':
           $ref: '#/components/responses/MethodNotAllowed'
-        500:
+        '500':
           $ref: '#/components/responses/InternalError'
-  /leads/{leadId}:
+  '/leads/{leadId}':
     get:
       tags:
-      - Leads
+        - Leads
       summary: Get a lead
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: path
-        name: leadId
-        required: true
-        description: Id of account
-        type: string
+        - in: path
+          name: leadId
+          required: true
+          description: Id of account
+          type: string
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Lead'
-        404:
-          $ref: '#/components/responses/NotFound'
-        400:
+        '400':
           $ref: '#/components/responses/NotAuthenticated'
-        405:
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '405':
           $ref: '#/components/responses/MethodNotAllowed'
-        500:
+        '500':
           $ref: '#/components/responses/InternalError'
     patch:
       tags:
-      - Leads
+        - Leads
       summary: Update a lead
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: path
-        name: leadId
-        required: true
-        description: Id of lead
-        type: string
+        - in: path
+          name: leadId
+          required: true
+          description: Id of lead
+          type: string
       requestBody:
         description: The info to update the lead with.
         content:
@@ -227,50 +224,50 @@ paths:
             schema:
               $ref: '#/components/schemas/LeadInput'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Lead'
-        404:
-          $ref: '#/components/responses/NotFound'
-        400:
+        '400':
           $ref: '#/components/responses/NotAuthenticated'
-        405:
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '405':
           $ref: '#/components/responses/MethodNotAllowed'
-        500:
+        '500':
           $ref: '#/components/responses/InternalError'
     delete:
       tags:
-      - Leads
+        - Leads
       summary: Remove a lead
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: path
-        name: leadId
-        required: true
-        description: Id of lead
-        type: string
+        - in: path
+          name: leadId
+          required: true
+          description: Id of lead
+          type: string
       responses:
-        200:
+        '200':
           description: Success
-        404:
-          $ref: '#/components/responses/NotFound'
-        400:
+        '400':
           $ref: '#/components/responses/NotAuthenticated'
-        405:
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '405':
           $ref: '#/components/responses/MethodNotAllowed'
-        500:
+        '500':
           $ref: '#/components/responses/InternalError'
   /cases:
     get:
       tags:
-      - Cases
+        - Cases
       summary: Find case(s)
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: query
+        - in: query
       responses:
-        200:
+        '200':
           description: Success
           content:
             application/json:
@@ -278,15 +275,15 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Case'
-        400:
+        '400':
           $ref: '#/components/responses/NotAuthenticated'
-        405:
+        '405':
           $ref: '#/components/responses/MethodNotAllowed'
-        500:
+        '500':
           $ref: '#/components/responses/InternalError'
     post:
       tags:
-      - Cases
+        - Cases
       summary: Create a case
       requestBody:
         description: The info to create the case with.
@@ -295,50 +292,50 @@ paths:
             schema:
               $ref: '#/components/schemas/CaseInput'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Case'
-        400:
+        '400':
           $ref: '#/components/responses/NotAuthenticated'
-        405:
+        '405':
           $ref: '#/components/responses/MethodNotAllowed'
-        500:
+        '500':
           $ref: '#/components/responses/InternalError'
-  /cases/{caseId}:
+  '/cases/{caseId}':
     get:
       tags:
-      - Cases
+        - Cases
       summary: Get a case
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: path
-        name: caseId
-        required: true
-        description: Id of case
-        type: string
+        - in: path
+          name: caseId
+          required: true
+          description: Id of case
+          type: string
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Case'
-        404:
-          $ref: '#/components/responses/NotFound'
-        400:
+        '400':
           $ref: '#/components/responses/NotAuthenticated'
-        405:
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '405':
           $ref: '#/components/responses/MethodNotAllowed'
-        500:
+        '500':
           $ref: '#/components/responses/InternalError'
     patch:
       tags:
-      - Cases
+        - Cases
       summary: Update a case
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: path
-        name: caseId
-        required: true
-        description: Id of case
-        type: string
+        - in: path
+          name: caseId
+          required: true
+          description: Id of case
+          type: string
       requestBody:
         description: The info to update the case with.
         content:
@@ -346,50 +343,50 @@ paths:
             schema:
               $ref: '#/components/schemas/CaseInput'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Case'
-        404:
-          $ref: '#/components/responses/NotFound'
-        400:
+        '400':
           $ref: '#/components/responses/NotAuthenticated'
-        405:
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '405':
           $ref: '#/components/responses/MethodNotAllowed'
-        500:
+        '500':
           $ref: '#/components/responses/InternalError'
     delete:
       tags:
-      - Cases
+        - Cases
       summary: Remove a case
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: path
-        name: caseId
-        required: true
-        description: Id of case
-        type: string
+        - in: path
+          name: caseId
+          required: true
+          description: Id of case
+          type: string
       responses:
-        200:
+        '200':
           description: Success
-        404:
-          $ref: '#/components/responses/NotFound'
-        400:
+        '400':
           $ref: '#/components/responses/NotAuthenticated'
-        405:
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '405':
           $ref: '#/components/responses/MethodNotAllowed'
-        500:
+        '500':
           $ref: '#/components/responses/InternalError'
   /contacts:
     get:
       tags:
-      - Contacts
+        - Contacts
       summary: Find contact(s)
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: query
+        - in: query
       responses:
-        200:
+        '200':
           description: Success
           content:
             application/json:
@@ -397,15 +394,15 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Contact'
-        400:
+        '400':
           $ref: '#/components/responses/NotAuthenticated'
-        405:
+        '405':
           $ref: '#/components/responses/MethodNotAllowed'
-        500:
+        '500':
           $ref: '#/components/responses/InternalError'
     post:
       tags:
-      - Contacts
+        - Contacts
       summary: Create a contact
       requestBody:
         description: The info to create the contact with.
@@ -414,50 +411,50 @@ paths:
             schema:
               $ref: '#/components/schemas/ContactInput'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Contact'
-        400:
+        '400':
           $ref: '#/components/responses/NotAuthenticated'
-        405:
+        '405':
           $ref: '#/components/responses/MethodNotAllowed'
-        500:
+        '500':
           $ref: '#/components/responses/InternalError'
-  /contacts/{contactId}:
+  '/contacts/{contactId}':
     get:
       tags:
-      - Contacts
+        - Contacts
       summary: Get a contact
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: path
-        name: contactId
-        required: true
-        description: Id of contact
-        type: string
+        - in: path
+          name: contactId
+          required: true
+          description: Id of contact
+          type: string
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Contact'
-        404:
-          $ref: '#/components/responses/NotFound'
-        400:
+        '400':
           $ref: '#/components/responses/NotAuthenticated'
-        405:
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '405':
           $ref: '#/components/responses/MethodNotAllowed'
-        500:
+        '500':
           $ref: '#/components/responses/InternalError'
     patch:
       tags:
-      - Contacts
+        - Contacts
       summary: Update a contact
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: path
-        name: contactId
-        required: true
-        description: Id of contact
-        type: string
+        - in: path
+          name: contactId
+          required: true
+          description: Id of contact
+          type: string
       requestBody:
         description: The info to update the contact with.
         content:
@@ -465,38 +462,38 @@ paths:
             schema:
               $ref: '#/components/schemas/ContactInput'
       responses:
-        200:
+        '200':
           $ref: '#/components/responses/Contact'
-        404:
-          $ref: '#/components/responses/NotFound'
-        400:
+        '400':
           $ref: '#/components/responses/NotAuthenticated'
-        405:
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '405':
           $ref: '#/components/responses/MethodNotAllowed'
-        500:
+        '500':
           $ref: '#/components/responses/InternalError'
     delete:
       tags:
-      - Contacts
+        - Contacts
       summary: Remove a contact
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: path
-        name: contactId
-        required: true
-        description: Id of contact
-        type: string
+        - in: path
+          name: contactId
+          required: true
+          description: Id of contact
+          type: string
       responses:
-        200:
+        '200':
           description: Success
-        404:
-          $ref: '#/components/responses/NotFound'
-        400:
+        '400':
           $ref: '#/components/responses/NotAuthenticated'
-        405:
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '405':
           $ref: '#/components/responses/MethodNotAllowed'
-        500:
+        '500':
           $ref: '#/components/responses/InternalError'
 components:
   schemas:
@@ -854,4 +851,3 @@ components:
         text/plain:
           schema:
             $ref: '#/components/schemas/Error'
-
