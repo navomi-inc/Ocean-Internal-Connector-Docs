@@ -1502,6 +1502,16 @@
           }
         }
       },
+      "Note": {
+        "description": "Success",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Note"
+            }
+          }
+        }
+      },
       "NotFound": {
         "description": "Module not found"
       },
