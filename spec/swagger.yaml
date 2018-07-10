@@ -963,15 +963,15 @@ components:
         body:
           type: string
           description: The body of the note.
-      Error:
-        type: object
-        properties:
-          id:
-            type: string
-            description: The correlation id.
-          error:
-            type: string
-            description: The description of the error
+    Error:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The correlation id.
+        error:
+          type: string
+          description: The description of the error
   responses:
     Account:
       description: Success
